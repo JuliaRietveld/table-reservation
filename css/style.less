@@ -1,61 +1,79 @@
-.container{
-	width: 960px;
-	margin: 0 auto;
-	overflow: hidden;
-	position: relative;
-}
-
-.item-box{
-	display: inline-block;
-	position: relative;
-	width: 80px;
-	border: 1px solid black;
-}
-
-.allow-drag{
-	background: #ccc;
-}
+/*Variables to control table height & width*/
 @timeSlotHeight: 25px;
-@totalSlots: 16;
+@totalTimeSlots: 16;
 @seatWidth: 30px;
+
+ .gradient (@origin: left, @start: #ffffff, @stop: #000000) {
+ 	background: @start; /* Old browsers */
+    background: -moz-linear-gradient(top, @start 0%, @stop 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(100%,@stop)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, @start 0%,@stop 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, @start 0%,@stop 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, @start 0%,@stop 100%); /* IE10+ */
+    background: linear-gradient(to bottom, @start 0%,@stop 100%); /* W3C */
+    filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@start', endColorstr='@stop',GradientType=0 )"; /* IE6-9 */
+ }
+
+ .border-radius (@radius: 5px) {
+ 	-webkit-border-radius: @radius;
+ 	-moz-border-radius: @radius;
+ 	border-radius: @radius;
+ }
+ .border-box-sizing(){
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+ }
+/*Body styles*/
+body{
+    font-size: 12px;
+}
+.container{
+    width: 630px;
+    margin: 0 auto;
+}
 
 #reservationChart{
     border-right: 1px solid black;
-	display: inline-block;
-	position: relative;
-}
-#newReservations{
     display: inline-block;
-    margin-left: 100px;
-    margin-top: 180px;
+    position: relative;
+}
+
+#timeChart,.table-1,.table-2,.table-3{
+    background: white;
+    border-left: 1px solid #333;
+    float: left;
+    display: inline-block;
+    height: @timeSlotHeight * @totalTimeSlots + 14;
     vertical-align: top;
 }
-#timeChart,.table-1,.table-2,.table-3{
-	background: white;
-	border-left: 1px solid black;
-	display: inline-block;
-	float: left;
-	position: relative;
-	height: @timeSlotHeight * @totalSlots;
-	vertical-align: top;
+
+#tables{
+    display: inline-block;
+    float: left;
 }
+
 #timeChart{
     border-left: 0;
-    position: static;
     width: @seatWidth * 2.5;
+    margin-top: 14px;
+    height: @timeSlotHeight * @totalTimeSlots + 1;
 }
+
 .time-slot{
     height: @timeSlotHeight;
+    line-height: 42px;
 }
+
 .hour-separator{
     border-bottom: 1px solid black;
     position: absolute;
     width: 100%;
     z-index: 2;
-    &:after{
-        border-bottom: 1px solid #ccc;
-    }
 }
+
+/*Setting table widths depending on the number of chairs*/
+
 .table-1{
     width: 2 * @seatWidth;
 }
@@ -65,40 +83,62 @@
 .table-3{
     width: 3 * @seatWidth;
 }
-.reservation{
-  background: #ed7171; /* Old browsers */
-  background: -moz-linear-gradient(top, #ed7171 0%, #ea3535 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ed7171), color-stop(100%,#ea3535)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #ed7171 0%,#ea3535 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #ed7171 0%,#ea3535 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #ed7171 0%,#ea3535 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #ed7171 0%,#ea3535 100%); /* W3C */
-  filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed7171', endColorstr='#ea3535',GradientType=0 )"; /* IE6-9 */
-  border: 1px solid black;
-  border-width: 1px 0 1px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+
+.slot-header{
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
 }
-.empty-slots{
+/*Occupied slots*/
+.reservation{
+    .gradient(left, #ed7171, #ea3535);
+    border: 1px solid red;
+    border-width: 1px 0 1px;
+    .border-box-sizing()
+}
+
+/*Empty Vacancy*/
+.vacant-slots{
     position: relative;
 }
+
+/*Styling for new reservation*/
+ #newReservations{
+     display: inline-block;
+     margin-left: 100px;
+     margin-top: 180px;
+     vertical-align: top;
+ }
 .new-reservation{
-    background: #ccc;
-    &:hover{
+    .border-radius();
+    .gradient(left, #ccc, #d1d1d1);
+    .border-box-sizing();
+    &:hover, label:hover{
         cursor: move;
     }
 }
 
-.matching-vacancy{
-    background: blue;
+.highlight-vacancy{
+    .gradient(left, #66a1cc, #2586cc);
 }
 
 .dragged{
-    background: yellow;
     z-index: 9999;
 }
 
 .reservation-added{
-    background: green;
+    .gradient(left, #4CAD71,#21b259);
+    .border-box-sizing();
+    border: 1px solid green;
+}
+
+.new-reservation,.reservation-added{
+    label{
+        display: block;
+        font-weight: bold;
+        position: relative;
+        top: 20%;
+        padding: 0 20px;
+        text-align: center;
+    }
 }

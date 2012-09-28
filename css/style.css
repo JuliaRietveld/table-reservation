@@ -1,48 +1,41 @@
+/*Variables to control table height & width*/
+/*Body styles*/
+body {
+  font-size: 12px;
+}
 .container {
-  width: 960px;
+  width: 630px;
   margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-}
-.item-box {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  border: 1px solid black;
-}
-.allow-drag {
-  background: #ccc;
 }
 #reservationChart {
   border-right: 1px solid black;
   display: inline-block;
   position: relative;
 }
-#newReservations {
-  display: inline-block;
-  margin-left: 100px;
-  margin-top: 180px;
-  vertical-align: top;
-}
 #timeChart,
 .table-1,
 .table-2,
 .table-3 {
   background: white;
-  border-left: 1px solid black;
+  border-left: 1px solid #333;
+  float: left;
+  display: inline-block;
+  height: 414px;
+  vertical-align: top;
+}
+#tables {
   display: inline-block;
   float: left;
-  position: relative;
-  height: 400px;
-  vertical-align: top;
 }
 #timeChart {
   border-left: 0;
-  position: static;
   width: 75px;
+  margin-top: 14px;
+  height: 401px;
 }
 .time-slot {
   height: 25px;
+  line-height: 42px;
 }
 .hour-separator {
   border-bottom: 1px solid black;
@@ -50,9 +43,7 @@
   width: 100%;
   z-index: 2;
 }
-.hour-separator:after {
-  border-bottom: 1px solid #ccc;
-}
+/*Setting table widths depending on the number of chairs*/
 .table-1 {
   width: 60px;
 }
@@ -62,6 +53,12 @@
 .table-3 {
   width: 90px;
 }
+.slot-header {
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+}
+/*Occupied slots*/
 .reservation {
   background: #ed7171;
   /* Old browsers */
@@ -84,31 +81,125 @@
   background: linear-gradient(to bottom, #ed7171 0%, #ea3535 100%);
   /* W3C */
 
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed7171', endColorstr='#ea3535',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@start', endColorstr='@stop',GradientType=0 );
   /* IE6-9 */
 
-  border: 1px solid black;
+  border: 1px solid red;
   border-width: 1px 0 1px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.empty-slots {
+/*Empty Vacancy*/
+.vacant-slots {
   position: relative;
 }
-.new-reservation {
-  background: #ccc;
+/*Styling for new reservation*/
+#newReservations {
+  display: inline-block;
+  margin-left: 100px;
+  margin-top: 180px;
+  vertical-align: top;
 }
-.new-reservation:hover {
+.new-reservation {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: #cccccc;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #cccccc 0%, #d1d1d1 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #d1d1d1));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #cccccc 0%, #d1d1d1 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #cccccc 0%, #d1d1d1 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #cccccc 0%, #d1d1d1 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #cccccc 0%, #d1d1d1 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@start', endColorstr='@stop',GradientType=0 );
+  /* IE6-9 */
+
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.new-reservation:hover, .new-reservation label:hover {
   cursor: move;
 }
-.matching-vacancy {
-  background: blue;
+.highlight-vacancy {
+  background: #66a1cc;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #66a1cc 0%, #2586cc 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #66a1cc), color-stop(100%, #2586cc));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #66a1cc 0%, #2586cc 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #66a1cc 0%, #2586cc 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #66a1cc 0%, #2586cc 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #66a1cc 0%, #2586cc 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@start', endColorstr='@stop',GradientType=0 );
+  /* IE6-9 */
+
 }
 .dragged {
-  background: yellow;
   z-index: 9999;
 }
 .reservation-added {
-  background: green;
+  background: #4cad71;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #4cad71 0%, #21b259 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4cad71), color-stop(100%, #21b259));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #4cad71 0%, #21b259 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #4cad71 0%, #21b259 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #4cad71 0%, #21b259 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #4cad71 0%, #21b259 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@start', endColorstr='@stop',GradientType=0 );
+  /* IE6-9 */
+
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid green;
+}
+.new-reservation label, .reservation-added label {
+  display: block;
+  font-weight: bold;
+  position: relative;
+  top: 20%;
+  padding: 0 20px;
+  text-align: center;
 }
