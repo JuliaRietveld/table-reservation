@@ -1,0 +1,104 @@
+.container{
+	width: 960px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+}
+
+.item-box{
+	display: inline-block;
+	position: relative;
+	width: 80px;
+	border: 1px solid black;
+}
+
+.allow-drag{
+	background: #ccc;
+}
+@timeSlotHeight: 25px;
+@totalSlots: 16;
+@seatWidth: 30px;
+
+#reservationChart{
+    border-right: 1px solid black;
+	display: inline-block;
+	position: relative;
+}
+#newReservations{
+    display: inline-block;
+    margin-left: 100px;
+    margin-top: 180px;
+    vertical-align: top;
+}
+#timeChart,.table-1,.table-2,.table-3{
+	background: white;
+	border-left: 1px solid black;
+	display: inline-block;
+	float: left;
+	position: relative;
+	height: @timeSlotHeight * @totalSlots;
+	vertical-align: top;
+}
+#timeChart{
+    border-left: 0;
+    position: static;
+    width: @seatWidth * 2.5;
+}
+.time-slot{
+    height: @timeSlotHeight;
+}
+.hour-separator{
+    border-bottom: 1px solid black;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    &:after{
+        border-bottom: 1px solid #ccc;
+    }
+}
+.table-1{
+    width: 2 * @seatWidth;
+}
+.table-2{
+    width: 4 * @seatWidth;
+}
+.table-3{
+    width: 3 * @seatWidth;
+}
+.reservation{
+  background: #ed7171; /* Old browsers */
+  background: -moz-linear-gradient(top, #ed7171 0%, #ea3535 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ed7171), color-stop(100%,#ea3535)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ed7171 0%,#ea3535 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ed7171 0%,#ea3535 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ed7171 0%,#ea3535 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ed7171 0%,#ea3535 100%); /* W3C */
+  filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed7171', endColorstr='#ea3535',GradientType=0 )"; /* IE6-9 */
+  border: 1px solid black;
+  border-width: 1px 0 1px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.empty-slots{
+    position: relative;
+}
+.new-reservation{
+    background: #ccc;
+    &:hover{
+        cursor: move;
+    }
+}
+
+.matching-vacancy{
+    background: blue;
+}
+
+.dragged{
+    background: yellow;
+    z-index: 9999;
+}
+
+.reservation-added{
+    background: green;
+}
