@@ -99,10 +99,19 @@ body{
 .table-1{
     height: 2 * @seatWidth;
     line-height: 2 * @seatWidth;
+    .reservation{
+        .gradient(left,#81bbf4, #5ba6f6);
+        border: 1px solid #5ba6f6;
+
+    }
 }
 .table-2{
     height: 4 * @seatWidth;
     line-height: 4 * @seatWidth;
+    .reservation{
+        .gradient(left,#d18b59, #d2722c);
+        border: 1px solid #d2722c;
+    }
 }
 .table-3{
     height: 3 * @seatWidth;
@@ -114,8 +123,8 @@ body{
 }
 /*Occupied slots*/
 .reservation{
-    .gradient(left, #ed7171, #ea3535);
-    border: 1px solid red;
+    .gradient(left, #a87864, #a94d27);
+    border: 1px solid #a87864;
     border-width: 0 1px;
     .border-box-sizing()
 }
@@ -143,7 +152,7 @@ body{
 }
 
 .highlight-vacancy{
-    .gradient(left, #66a1cc, #2586cc);
+    .gradient(left, #ede389, #efe156);
 }
 
 .dragged{
@@ -172,8 +181,12 @@ body{
     }
 }
 
+.reservation-added label{
+    color: white;
+    z-index: 3;
+}
 .draggable-object-over{
-    border: 2px dashed white;
-        .border-box-sizing();
+    border: 2px dashed #333;
+    .border-box-sizing();
 
 }
