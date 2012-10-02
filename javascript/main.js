@@ -1,40 +1,46 @@
 $(document).ready(function(){
     var currentReservation,
         newReservationContainer = $('#newReservations'),
-        reservationBlockOriginalOffset
-        startHour = 1700;
+        reservationBlockOriginalOffset = $('.new-reservation').offset();
+        startHour = 1700,
+        reservationDragged = false;
+
   //Code to make things draggable
     $( ".new-reservation")
     .on('mousedown',function(){
         currentReservation = $(this);
+        reservationDragged = false;
         if(currentReservation.hasClass('reservation-added')){
-            updateVacantSlot(currentReservation.next('.vacant-slot'));
+            updateVacantSlot(currentReservation.nextAll('.vacant-slot').first());
             currentReservation = currentReservation.detach();
             currentReservation.appendTo(newReservationContainer)
                 .css({float:'none',left:currentReservation.data('leftDiff'),top:currentReservation.data('topDiff'),position:'relative'})
                 .addClass('dragged new-reservation')
-                .draggable('options',{revert:false})
+                .draggable('options',{revert:'invalid'})
                 .removeClass('reservation-added');
-        }else{
-            reservationBlockOriginalOffset = currentReservation.offset();
         }
         highlightSuitableDropSpots();
+    })
+    .on('mouseup',function(){
+        if(!reservationDragged){
+            revertToOriginalPosition($(this));
+            removeHighlightsFromVacantSpots();
+        }
     })
     .draggable({
         revert: 'invalid',
         start: function(event,ui){
+            reservationDragged = true;
             currentReservation.addClass('dragged');
             highlightSuitableDropSpots();
         },
+
         stop: function(event, ui) {
             currentReservation.removeClass('dragged');
             removeHighlightsFromVacantSpots();
         },
         revert: function(event, ui){
-            $(this).data("draggable").originalPosition = {
-                top: 0,
-                left: 0
-            };
+            revertToOriginalPosition($(this));
             return !event;
         }
     });
@@ -72,10 +78,6 @@ $(document).ready(function(){
         var timePeriod = timeSlot.position().left,
             startTime = getTime(timePeriod+startHour);
             endTime = getTime(timePeriod+startHour+ currentReservation.width());
-//            timePeriodHourStart = parseInt((timePeriod + startHour)/100),
-//            timePeriodMinuteStart = (((timePeriod + startHour)%100)*60)/100,
-//            timePeriodHourEnd = timePeriodHourStart + currentReservation.width()/100;
-//            timePeriodMinuteEnd = ((timePeriodMinuteStart + currentReservation.width()%100)*60)/100;
 
         var confirmationString =  "Do you want to reserve table ";
             confirmationString +=  timeSlot.parent().attr('id');
@@ -111,5 +113,13 @@ $(document).ready(function(){
 
     function updateVacantSlot(reservationSlot){
         reservationSlot.width(reservationSlot.width()+currentReservation.outerWidth());
+    }
+
+    function revertToOriginalPosition($element){
+        $element.data('draggable').originalPosition = {
+                        left: 0,
+                        top: 0
+                    };
+        $element.animate({top:0,left:0});
     }
 });
