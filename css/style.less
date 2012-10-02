@@ -30,23 +30,39 @@ body{
     font-size: 12px;
 }
 .container{
-    width: 630px;
+    width: 960px;
     margin: 0 auto;
 }
 
+#tableNumbers{
+    border-right: 1px solid #333;
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    padding-top: @seatWidth * 1.5;
+    text-align: center;
+    vertical-align: top;
+    .table-1,.table-2,.table-3{
+        width: auto;
+        border-bottom: 0;
+        border-top: 1px solid #333;
+        width: @seatWidth * 1.5;
+    }
+}
 #reservationChart{
-    border-right: 1px solid black;
     display: inline-block;
     position: relative;
 }
 
 #timeChart,.table-1,.table-2,.table-3{
     background: white;
-    border-left: 1px solid #333;
-    float: left;
-    display: inline-block;
-    height: @timeSlotHeight * @totalTimeSlots + 14;
-    vertical-align: top;
+    border-bottom: 1px solid #333;
+}
+
+.reservation,.vacant-slot,.time-slot,.slot-header{
+    float:left;
+    height: 100%;
 }
 
 #tables{
@@ -56,45 +72,51 @@ body{
 
 #timeChart{
     border-left: 0;
-    width: @seatWidth * 2.5;
-    margin-top: 14px;
-    height: @timeSlotHeight * @totalTimeSlots + 1;
+    height: @seatWidth * 1.5;
 }
 
 .time-slot{
-    height: @timeSlotHeight;
+    width: @timeSlotHeight;
     line-height: 42px;
 }
 
 .hour-separator{
-    border-bottom: 1px solid black;
-    position: absolute;
-    width: 100%;
-    z-index: 2;
+    font-size: 10px;
+    position:relative;
+    &:after{
+        background: black;
+        content: " ";
+        height: 319px;
+        position: absolute;
+        right: 0;
+        width: 1px;
+        z-index: 3;
+    }
 }
 
 /*Setting table widths depending on the number of chairs*/
 
 .table-1{
-    width: 2 * @seatWidth;
+    height: 2 * @seatWidth;
+    line-height: 2 * @seatWidth;
 }
 .table-2{
-    width: 4 * @seatWidth;
+    height: 4 * @seatWidth;
+    line-height: 4 * @seatWidth;
 }
 .table-3{
-    width: 3 * @seatWidth;
+    height: 3 * @seatWidth;
+    line-height: 3 * @seatWidth;
 }
 
 .slot-header{
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
+
 }
 /*Occupied slots*/
 .reservation{
     .gradient(left, #ed7171, #ea3535);
     border: 1px solid red;
-    border-width: 1px 0 1px;
+    border-width: 0 1px;
     .border-box-sizing()
 }
 
@@ -109,6 +131,7 @@ body{
      margin-left: 100px;
      margin-top: 180px;
      vertical-align: top;
+     position: relative;
  }
 .new-reservation{
     .border-radius();
@@ -134,12 +157,23 @@ body{
 }
 
 .new-reservation,.reservation-added{
+    .border-box-sizing();
+    &:hover, label:hover{
+        cursor: move;
+    }
     label{
         display: block;
         font-weight: bold;
+        line-height: normal;
         position: relative;
         top: 20%;
         padding: 0 20px;
         text-align: center;
     }
+}
+
+.draggable-object-over{
+    border: 2px dashed white;
+        .border-box-sizing();
+
 }

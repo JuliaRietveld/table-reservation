@@ -8,56 +8,63 @@
 <body>
    <div class="container">
 
+
+   <div id="tableNumbers">
+       <div class="table-1">T1</div>
+       <div class="table-2">T2</div>
+       <div class="table-3">T3</div>
+   </div>
     <!--Reservation Chart-->
         <div id="reservationChart">
             <div id="timeChart">
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
-                <div class="time-slot">18:00</div>
-                <div class="hour-separator"></div>
+                <div class="time-slot hour-separator">18:00</div>
 
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
-                <div class="time-slot">19:00</div>
-                <div class="hour-separator"></div>
+                <div class="time-slot hour-separator">19:00</div>
 
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
-                <div class="time-slot">20:00</div>
-                <div class="hour-separator"></div>
+                <div class="time-slot hour-separator">20:00</div>
 
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
                 <div class="time-slot"></div>
-                <div class="time-slot">21:00</div>
-                <div class="hour-separator"></div>
+                <div class="time-slot hour-separator">21:00</div>
+
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot hour-separator">22:00</div>
             </div>
             <div id="tables">
-                <div class="table-1">
-                    <div class="slot-header">T1</div>
-                    <div class="reservation" style="height: 200px;"></div>
-                    <div class="vacant-slot" style="height: 75px;"></div>
-                    <div class="reservation" style="height: 125px;"></div>
+                <div class="table-1" id="T1">
+                    <div class="reservation" style="width: 200px;"></div>
+                    <div class="vacant-slot" style="width: 75px;"></div>
+                    <div class="reservation" style="width: 125px;"></div>
+                    <div class="reservation" style="width: 100px;"></div>
                 </div>
-                <div class="table-2">
-                    <div class="slot-header">T2</div>
-                    <div class="reservation" style="height: 175px;"></div>
-                    <div class="vacant-slot" style="height: 125px;"></div>
-                    <div class="reservation" style="height: 100px;"></div>
+                <div class="table-2" id="T2">
+                    <div class="reservation" style="width: 175px;"></div>
+                    <div class="vacant-slot" style="width: 125px;"></div>
+                    <div class="reservation" style="width: 75px;"></div>
+                    <div class="vacant-slot" style="width: 125px;"></div>
                 </div>
-                <div class="table-3">
-                    <div class="slot-header">T3</div>
-                    <div class="reservation" style="height: 200px;"></div>
-                    <div class="vacant-slot" style="height: 50px;"></div>
-                    <div class="reservation" style="height: 150px;"></div>
+                <div class="table-3" id="T3">
+                    <div class="reservation" style="width: 200px;"></div>
+                    <div class="vacant-slot" style="width: 50px;"></div>
+                    <div class="reservation" style="width: 150px;"></div>
+                    <div class="vacant-slot" style="width: 100px;"></div>
                 </div>
             </div>
         </div>
        <div id="newReservations">
-           <div class="new-reservation" style="height: 100px; width:90px;">
+           <div class="new-reservation" style="width: 100px; height:90px;">
                <label>3 people 1 hour</label>
            </div>
        </div>

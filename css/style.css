@@ -4,11 +4,26 @@ body {
   font-size: 12px;
 }
 .container {
-  width: 630px;
+  width: 960px;
   margin: 0 auto;
 }
+#tableNumbers {
+  border-right: 1px solid #333;
+  display: inline-block;
+  float: left;
+  font-size: 13px;
+  font-weight: bold;
+  padding-top: 45px;
+  text-align: center;
+  vertical-align: top;
+}
+#tableNumbers .table-1, #tableNumbers .table-2, #tableNumbers .table-3 {
+  width: auto;
+  border-bottom: 0;
+  border-top: 1px solid #333;
+  width: 45px;
+}
 #reservationChart {
-  border-right: 1px solid black;
   display: inline-block;
   position: relative;
 }
@@ -17,11 +32,14 @@ body {
 .table-2,
 .table-3 {
   background: white;
-  border-left: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+.reservation,
+.vacant-slot,
+.time-slot,
+.slot-header {
   float: left;
-  display: inline-block;
-  height: 414px;
-  vertical-align: top;
+  height: 100%;
 }
 #tables {
   display: inline-block;
@@ -29,34 +47,37 @@ body {
 }
 #timeChart {
   border-left: 0;
-  width: 75px;
-  margin-top: 14px;
-  height: 401px;
+  height: 45px;
 }
 .time-slot {
-  height: 25px;
+  width: 25px;
   line-height: 42px;
 }
 .hour-separator {
-  border-bottom: 1px solid black;
+  font-size: 10px;
+  position: relative;
+}
+.hour-separator:after {
+  background: black;
+  content: " ";
+  height: 319px;
   position: absolute;
-  width: 100%;
-  z-index: 2;
+  right: 0;
+  width: 1px;
+  z-index: 3;
 }
 /*Setting table widths depending on the number of chairs*/
 .table-1 {
-  width: 60px;
+  height: 60px;
+  line-height: 60px;
 }
 .table-2 {
-  width: 120px;
+  height: 120px;
+  line-height: 120px;
 }
 .table-3 {
-  width: 90px;
-}
-.slot-header {
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
+  height: 90px;
+  line-height: 90px;
 }
 /*Occupied slots*/
 .reservation {
@@ -85,7 +106,7 @@ body {
   /* IE6-9 */
 
   border: 1px solid red;
-  border-width: 1px 0 1px;
+  border-width: 0 1px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -100,6 +121,7 @@ body {
   margin-left: 100px;
   margin-top: 180px;
   vertical-align: top;
+  position: relative;
 }
 .new-reservation {
   -webkit-border-radius: 5px;
@@ -195,11 +217,29 @@ body {
   box-sizing: border-box;
   border: 1px solid green;
 }
+.new-reservation, .reservation-added {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.new-reservation:hover,
+.reservation-added:hover,
+.new-reservation label:hover,
+.reservation-added label:hover {
+  cursor: move;
+}
 .new-reservation label, .reservation-added label {
   display: block;
   font-weight: bold;
+  line-height: normal;
   position: relative;
   top: 20%;
   padding: 0 20px;
   text-align: center;
+}
+.draggable-object-over {
+  border: 2px dashed white;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
