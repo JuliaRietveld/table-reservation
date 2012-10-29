@@ -3,7 +3,9 @@ $(document).ready(function(){
     $.each(reservationChart,function(){
         $.each(this.schedule,function(){
             this.from = new Date(this.from);
+            this.from = new Date(this.from.getTime() + (this.from.getTimezoneOffset() * 60000));
             this.to = new Date(this.to);
+            this.to = new Date(this.to.getTime() + (this.to.getTimezoneOffset() * 60000));
             this.duration = (this.to.getTime() - this.from.getTime())/60000;
         })
     });
@@ -14,10 +16,12 @@ $(document).ready(function(){
 var reservationManager = (function(){
     var $timeChart,
         $tables,
+        $reservationChartContainer,
         $newReservationContainer,
         schedule,
         vacantSlots = [],
         hourPixelEquivalentLength = 100,
+        autoScrollTimeoutId,
         newReservation = {
             people: 3,
             duration: 60
@@ -57,6 +61,7 @@ var reservationManager = (function(){
             timeChartHTMLString += '<div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot hour-separator">' + i + ':00</div>';
         }
         $timeChart.html(timeChartHTMLString);
+
     };
 
     function initNewReservation(){
@@ -75,16 +80,69 @@ var reservationManager = (function(){
     }
 
     function init(reservationSchedule){
+        $reservationChartContainer = $("#reservationChart");
         $timeChart = $('#timeChart');
         $tables = $('#tables');
         schedule = reservationSchedule;
+        updateTimeChartAndTableContainerWidth();
         createTimeScale();
         createReservationGrid();
         initNewReservation();
         initDragModule(newReservation);
         initDropSpots();
+        initNavButtons();
     };
-    
+
+    function updateTimeChartAndTableContainerWidth(){
+        var totalContainerLength = (schedule[0].schedule.length+1) * 100;
+        $timeChart.css('width',totalContainerLength);
+        $tables.css('width',totalContainerLength);
+    };
+
+    function initNavButtons(){
+        var scrollOffset = 700;
+        $('#btnLeft').on('click',function(e){
+            e.preventDefault();
+            var currentScrollPosition = $reservationChartContainer.scrollLeft();
+            $reservationChartContainer.scrollLeft(currentScrollPosition - scrollOffset);
+            console.log($reservationChartContainer.scrollLeft());
+        })
+        .droppable({
+            tolerance:"intersect",
+            accept: '.new-reservation',
+            over: function(event,ui){
+                autoScrollTimeoutId = setInterval(function(){
+                    console.log('scrolling left button');
+                    var currentScrollPosition = $reservationChartContainer.scrollLeft();    
+                    $reservationChartContainer.scrollLeft(currentScrollPosition - scrollOffset);
+                },2000);
+            },
+            out: function(event, ui){
+                clearInterval(autoScrollTimeoutId);
+            }
+
+        });
+        $('#btnRight').on('click',function(e){
+            e.preventDefault();
+            var currentScrollPosition = $reservationChartContainer.scrollLeft();
+            $reservationChartContainer.scrollLeft(currentScrollPosition + scrollOffset);
+            console.log($reservationChartContainer.scrollLeft());
+        })
+        .droppable({
+            tolerance:"intersect",
+            accept: '.new-reservation',
+            over: function(event,ui){
+                autoScrollTimeoutId = setInterval(function(){
+                    console.log('scrolling right button');
+                    var currentScrollPosition = $reservationChartContainer.scrollLeft();    
+                    $reservationChartContainer.scrollLeft(currentScrollPosition + scrollOffset);
+                },2000);
+            },
+            out: function(event, ui){
+                clearInterval(autoScrollTimeoutId);
+            }
+        });
+    }
     /*DRAG DROP MODULE*/
     var currentReservation,
         $currentReservation,
@@ -125,6 +183,7 @@ var reservationManager = (function(){
                 stop: function(event, ui) {
                     removeHighlightsFromVacantSpots();
                     $(this).removeClass('dragged');
+                    clearInterval(autoScrollTimeoutId);
                 },
                 revert: function(event, ui){
                     revertToOriginalPosition($(this));

@@ -1,4 +1,5 @@
 /*Variables to control table height & width*/
+
 @timeSlotHeight: 25px;
 @totalTimeSlots: 16;
 @seatWidth: 30px;
@@ -26,6 +27,10 @@
  }
 
 /*Body styles*/
+body, html{
+    height: 100%;
+    min-height: 100%;
+}
 body{
     font-size: 12px;
 }
@@ -33,7 +38,13 @@ body{
     width: 960px;
     margin: 0 auto;
 }
-
+.navBtn{
+    display: inline-block;
+    height: 150px;
+    padding: 170px 20px 0;
+    text-decoration: none;
+    vertical-align: top;
+}
 #tableNumbers{
     border-right: 1px solid #333;
     display: inline-block;
@@ -53,6 +64,8 @@ body{
 #reservationChart{
     display: inline-block;
     position: relative;
+    overflow: hidden;
+    width: 700px; 
 }
 
 #timeChart,.table-1,.table-2,.table-3{
